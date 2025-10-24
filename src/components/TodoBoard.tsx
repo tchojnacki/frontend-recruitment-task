@@ -1,27 +1,24 @@
-import type { Todo } from "../types/todo";
+import { useTodos } from "../api/useTodos";
 import { BottomTodoInfo } from "./BottomTodoInfo";
 import { CreateTodoForm } from "./CreateTodoForm";
 import { TodoList } from "./TodoList";
 
 export function TodoBoard() {
-  const todos: Todo[] = [
-    {
-      id: 1,
-      title: "Start recruitment task",
-      completed: true,
-    },
-    {
-      id: 2,
-      title: "Submit recruitment task",
-      completed: false,
-    },
-  ];
+  const { data, isPending, isError } = useTodos();
 
   // TODO
   const createTodo = () => Promise.resolve();
 
   // TODO
   const clearTodos = () => Promise.resolve();
+
+  if (isError) {
+    // NOTE: purposefully not styling this, since it seems out of scope for this task
+    return <div>Error loading todos!</div>;
+  }
+
+  // NOTE: might alternatively show a spinner here
+  const todos = isPending ? [] : data;
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-4 p-4">
