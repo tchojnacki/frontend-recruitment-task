@@ -4,10 +4,10 @@ import { CreateTodoForm } from "./CreateTodoForm";
 import { TodoList } from "./TodoList";
 
 export function TodoBoard() {
-  const [{ data, isPending, isError }, { createTodo }] = useTodos();
-
-  // TODO
-  const clearTodos = () => Promise.resolve();
+  const [
+    { data, isPending, isError },
+    { createTodo, updateTodo, bulkDeleteTodos },
+  ] = useTodos();
 
   if (isError) {
     // NOTE: purposefully not styling this, since it seems out of scope for this task
@@ -20,8 +20,8 @@ export function TodoBoard() {
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-4 p-4">
       <CreateTodoForm onCreate={createTodo} />
-      <TodoList todos={todos} />
-      <BottomTodoInfo todos={todos} onClear={clearTodos} />
+      <TodoList todos={todos} onUpdate={updateTodo} />
+      <BottomTodoInfo todos={todos} onBulkDelete={bulkDeleteTodos} />
     </div>
   );
 }

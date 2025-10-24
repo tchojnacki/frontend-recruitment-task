@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
-import type { Todo } from "../types/todo";
+import type { BulkDeleteTodosReq, Todo } from "../types/todo";
 
 type BottomTodoInfoProps = {
   todos: Todo[];
-  onClear: () => Promise<void>;
+  onBulkDelete: (req: BulkDeleteTodosReq) => Promise<void>;
 };
 
 // TODO
-export function BottomTodoInfo({ todos, onClear }: BottomTodoInfoProps) {
+export function BottomTodoInfo({ todos, onBulkDelete }: BottomTodoInfoProps) {
   const [isPending, setIsPending] = useState(false);
 
   const completedTodos = useMemo(
@@ -18,7 +18,7 @@ export function BottomTodoInfo({ todos, onClear }: BottomTodoInfoProps) {
   const handleClick = async () => {
     setIsPending(true);
     try {
-      await onClear();
+      await onBulkDelete({ ids: completedTodos.map((todo) => todo.id) });
     } catch {
       // TODO
     } finally {

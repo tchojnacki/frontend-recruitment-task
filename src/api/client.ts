@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { CreateTodoReq } from "../types/todo";
+import type { CreateTodoReq, Todo, UpdateTodoReq } from "../types/todo";
 import { TodoListSchema, TodoSchema } from "./schemas";
 
 export const API_URL = `http://localhost:3000`;
@@ -14,5 +14,14 @@ export const todoApi = {
   async create(req: CreateTodoReq) {
     const res = await axios.post(`${API_URL}/todos`, req);
     return TodoSchema.parseAsync(res.data);
+  },
+  async update(req: UpdateTodoReq) {
+    const { id, ...updates } = req;
+    const res = await axios.put(`${API_URL}/todos/${id}`, updates);
+    return TodoSchema.parseAsync(res.data);
+  },
+  async delete(id: Todo["id"]) {
+    // NOTE: the DELETE all endpoint returns 201 Created, weird
+    await axios.delete(`${API_URL}/todos/${id}`);
   },
 };
