@@ -5,9 +5,9 @@ type CreateTodoFormProps = {
   onCreate: (req: CreateTodoReq) => Promise<void>;
 };
 
-// TODO
 export function CreateTodoForm({ onCreate }: CreateTodoFormProps) {
   const [title, setTitle] = useState("");
+  const [error, setError] = useState<string | null>(null);
   // NOTE: we could add a pending state, but letting the user type ahead anyways feels like a better UX
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -17,10 +17,11 @@ export function CreateTodoForm({ onCreate }: CreateTodoFormProps) {
     if (newTodo.title === "") return;
 
     setTitle("");
+    setError(null);
     try {
       await onCreate(newTodo);
     } catch {
-      // TODO
+      setError("Failed to create the todo!");
     }
   };
 
@@ -33,6 +34,7 @@ export function CreateTodoForm({ onCreate }: CreateTodoFormProps) {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+      {error !== null && <p className="text-sm text-red-600">{error}</p>}
     </form>
   );
 }

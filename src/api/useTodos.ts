@@ -6,6 +6,8 @@ import type {
 } from "../types/todo";
 import { todoApi } from "./client";
 
+// NOTE: tried to contain Tanstack Query to this file only, so that it can be swapped out if needed
+
 export function useTodos() {
   const query = useQuery({
     queryKey: ["todos"],

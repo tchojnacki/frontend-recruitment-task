@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { ChangeEvent } from "react";
+import { useId, type ChangeEvent } from "react";
 
 import type { Todo, UpdateTodoReq } from "../types/todo";
 
@@ -8,8 +8,9 @@ type TodoItemProps = {
   onUpdate: (req: UpdateTodoReq) => Promise<void>;
 };
 
-// TODO
 export function TodoItem({ todo, onUpdate }: TodoItemProps) {
+  const inputId = useId(); // NOTE: link label and input for accessibility
+
   const handleCompletedChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       await onUpdate({ id: todo.id, completed: e.target.checked });
@@ -30,6 +31,7 @@ export function TodoItem({ todo, onUpdate }: TodoItemProps) {
         <label
           className="select-none font-medium text-gray-900"
           data-testid="todo-title"
+          htmlFor={inputId}
         >
           {todo.title}
         </label>
@@ -40,6 +42,7 @@ export function TodoItem({ todo, onUpdate }: TodoItemProps) {
           className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
           checked={todo.completed}
           onChange={handleCompletedChange}
+          id={inputId}
         />
       </div>
     </div>

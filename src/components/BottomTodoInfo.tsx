@@ -6,9 +6,9 @@ type BottomTodoInfoProps = {
   onBulkDelete: (req: BulkDeleteTodosReq) => Promise<void>;
 };
 
-// TODO
 export function BottomTodoInfo({ todos, onBulkDelete }: BottomTodoInfoProps) {
   const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const completedTodos = useMemo(
     () => todos.filter((todo) => todo.completed),
@@ -17,10 +17,11 @@ export function BottomTodoInfo({ todos, onBulkDelete }: BottomTodoInfoProps) {
 
   const handleClick = async () => {
     setIsPending(true);
+    setError(null);
     try {
       await onBulkDelete({ ids: completedTodos.map((todo) => todo.id) });
     } catch {
-      // TODO
+      setError("Failed to clear completed todos!");
     } finally {
       setIsPending(false);
     }
@@ -30,22 +31,25 @@ export function BottomTodoInfo({ todos, onBulkDelete }: BottomTodoInfoProps) {
   const itemsLeft = todos.length - completedTodos.length;
 
   return (
-    <div className="flex h-8 items-center justify-between">
-      <span
-        data-testid="todo-count"
-        className="text-sm font-medium leading-6 text-gray-900"
-      >
-        {itemsLeft} items left
-      </span>
-      {completedTodos.length > 0 && (
-        <button
-          className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          onClick={handleClick}
-          disabled={isPending}
+    <>
+      <div className="flex h-8 items-center justify-between">
+        <span
+          data-testid="todo-count"
+          className="text-sm font-medium leading-6 text-gray-900"
         >
-          Clear completed
-        </button>
-      )}
-    </div>
+          {itemsLeft} items left
+        </span>
+        {completedTodos.length > 0 && (
+          <button
+            className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            onClick={handleClick}
+            disabled={isPending}
+          >
+            Clear completed
+          </button>
+        )}
+      </div>
+      {error !== null && <p className="text-sm text-red-600">{error}</p>}
+    </>
   );
 }
