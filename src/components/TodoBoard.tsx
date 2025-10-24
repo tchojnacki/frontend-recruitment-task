@@ -1,4 +1,4 @@
-import { Todo } from "../types/todo";
+import type { Todo } from "../types/todo";
 import { BottomTodoInfo } from "./BottomTodoInfo";
 import { CreateTodoForm } from "./CreateTodoForm";
 import { TodoList } from "./TodoList";
@@ -17,11 +17,17 @@ export function TodoBoard() {
     },
   ];
 
+  // TODO
+  const createTodo = () => Promise.resolve();
+
+  // TODO
+  const clearTodos = () => Promise.resolve();
+
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-4 p-4">
-      <CreateTodoForm />
+      <CreateTodoForm onCreate={createTodo} />
       <TodoList todos={todos} />
-      <BottomTodoInfo />
+      <BottomTodoInfo todos={todos} onClear={clearTodos} />
     </div>
   );
 }

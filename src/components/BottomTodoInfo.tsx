@@ -1,15 +1,51 @@
-export function BottomTodoInfo() {
+import { useMemo, useState } from "react";
+import type { Todo } from "../types/todo";
+
+type BottomTodoInfoProps = {
+  todos: Todo[];
+  onClear: () => Promise<void>;
+};
+
+// TODO
+export function BottomTodoInfo({ todos, onClear }: BottomTodoInfoProps) {
+  const [isPending, setIsPending] = useState(false);
+
+  const completedTodos = useMemo(
+    () => todos.filter((todo) => todo.completed),
+    [todos],
+  );
+
+  const handleClick = async () => {
+    setIsPending(true);
+    try {
+      await onClear();
+    } catch {
+      // TODO
+    } finally {
+      setIsPending(false);
+    }
+  };
+
+  // NOTE: I am assuming "current number of to-do items" refers to uncompleted items, if it means total items, set itemsLeft to todos.length
+  const itemsLeft = todos.length - completedTodos.length;
+
   return (
     <div className="flex h-8 items-center justify-between">
       <span
         data-testid="todo-count"
         className="text-sm font-medium leading-6 text-gray-900"
       >
-        0 items left
+        {itemsLeft} items left
       </span>
-      <button className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-        Clear completed
-      </button>
+      {completedTodos.length > 0 && (
+        <button
+          className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          onClick={handleClick}
+          disabled={isPending}
+        >
+          Clear completed
+        </button>
+      )}
     </div>
   );
 }
