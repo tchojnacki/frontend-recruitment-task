@@ -4,10 +4,7 @@ import { CreateTodoForm } from "./CreateTodoForm";
 import { TodoList } from "./TodoList";
 
 export function TodoBoard() {
-  const { data, isPending, isError } = useTodos();
-
-  // TODO
-  const createTodo = () => Promise.resolve();
+  const [{ data, isPending, isError }, { createTodo }] = useTodos();
 
   // TODO
   const clearTodos = () => Promise.resolve();

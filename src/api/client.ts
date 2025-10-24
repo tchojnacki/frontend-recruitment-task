@@ -1,5 +1,6 @@
 import axios from "axios";
-import { TodoListSchema } from "./schemas";
+import type { CreateTodoReq } from "../types/todo";
+import { TodoListSchema, TodoSchema } from "./schemas";
 
 export const API_URL = `http://localhost:3000`;
 
@@ -9,5 +10,9 @@ export const todoApi = {
   async getAll() {
     const res = await axios.get(`${API_URL}/todos`);
     return TodoListSchema.parseAsync(res.data);
+  },
+  async create(req: CreateTodoReq) {
+    const res = await axios.post(`${API_URL}/todos`, req);
+    return TodoSchema.parseAsync(res.data);
   },
 };

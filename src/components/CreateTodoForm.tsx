@@ -1,22 +1,24 @@
 import { FormEvent, useState } from "react";
+import type { CreateTodoReq } from "../types/todo";
 
 type CreateTodoFormProps = {
-  onCreate: (title: string) => Promise<void>;
+  onCreate: (req: CreateTodoReq) => Promise<void>;
 };
 
 // TODO
 export function CreateTodoForm({ onCreate }: CreateTodoFormProps) {
   const [title, setTitle] = useState("");
+  // NOTE: we could add a pending state, but letting the user type ahead anyways feels like a better UX
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newTitle = title.trim();
-    if (newTitle.length === 0) return;
+    const newTodo = { title: title.trim() };
+    if (newTodo.title === "") return;
 
     setTitle("");
     try {
-      await onCreate(newTitle);
+      await onCreate(newTodo);
     } catch {
       // TODO
     }
