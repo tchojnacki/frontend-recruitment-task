@@ -1,7 +1,8 @@
 import clsx from "clsx";
 import { useId, type ChangeEvent } from "react";
 
-import type { Todo, UpdateTodoReq } from "../types/todo";
+import type { UpdateTodoReq } from "../api";
+import type { Todo } from "../models";
 
 type TodoItemProps = {
   todo: Todo;

@@ -1,10 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type {
-  BulkDeleteTodosReq,
-  CreateTodoReq,
-  UpdateTodoReq,
-} from "../types/todo";
+
 import { todoApi } from "./client";
+import type { BulkDeleteTodosReq, CreateTodoReq, UpdateTodoReq } from "./types";
 
 // NOTE: tried to contain Tanstack Query to this file only, so that it can be swapped out if needed
 

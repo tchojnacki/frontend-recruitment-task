@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { TodoBoard } from "./components/TodoBoard";
 
 const globalQueryClient = new QueryClient();

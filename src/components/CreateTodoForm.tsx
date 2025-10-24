@@ -1,5 +1,6 @@
-import { FormEvent, useState } from "react";
-import type { CreateTodoReq } from "../types/todo";
+import { type FormEvent, useState } from "react";
+
+import type { CreateTodoReq } from "../api";
 
 type CreateTodoFormProps = {
   onCreate: (req: CreateTodoReq) => Promise<void>;

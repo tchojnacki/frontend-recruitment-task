@@ -1,4 +1,4 @@
-import { useTodos } from "../api/useTodos";
+import { useTodos } from "../api";
 import { BottomTodoInfo } from "./BottomTodoInfo";
 import { CreateTodoForm } from "./CreateTodoForm";
 import { TodoList } from "./TodoList";

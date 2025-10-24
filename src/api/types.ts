@@ -1,8 +1,4 @@
-export type Todo = {
-  id: string; // NOTE: this type was changed from number, the backend returns UUIDs, which are strings
-  title: string;
-  completed: boolean;
-};
+import type { Todo } from "../models";
 
 export type CreateTodoReq = Pick<Todo, "title">;
 

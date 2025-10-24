@@ -1,4 +1,5 @@
-import type { Todo, UpdateTodoReq } from "../types/todo";
+import type { UpdateTodoReq } from "../api";
+import type { Todo } from "../models";
 import { TodoItem } from "./TodoItem";
 
 type TodoListProps = {

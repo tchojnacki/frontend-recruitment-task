@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
-import type { BulkDeleteTodosReq, Todo } from "../types/todo";
+
+import type { BulkDeleteTodosReq } from "../api";
+import type { Todo } from "../models";
 
 type BottomTodoInfoProps = {
   todos: Todo[];

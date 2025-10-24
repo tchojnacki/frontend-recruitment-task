@@ -1,6 +1,8 @@
 import axios from "axios";
-import type { CreateTodoReq, Todo, UpdateTodoReq } from "../types/todo";
+
+import type { Todo } from "../models";
 import { TodoListSchema, TodoSchema } from "./schemas";
+import type { CreateTodoReq, UpdateTodoReq } from "./types";
 
 export const API_URL = `http://localhost:3000`;
 
